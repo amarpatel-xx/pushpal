@@ -1,0 +1,1 @@
+reboot sh /home/pi/Workspace/launcher.sh >/home/pi/Desktop/pushpal.txt 2>&1
