@@ -4,6 +4,6 @@
 sleep 70
 
 # Call pushpal
-python3 /home/pi/Workspace/pushpal3.py
+python3 /home/pi/Workspace/pushpal/pushpal3.py
 
 
