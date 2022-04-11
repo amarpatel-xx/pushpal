@@ -38,10 +38,10 @@ Led_status_changed = 0
 # Chose one of these Messages to set
 ##########################################
 # Samsung TVs in my office - turn on/off:
-Message = 'sendir,1:2,1,37878,1,1,171,171,21,64,21,64,21,64,21,22,21,22,21,22,21,22,21,22,21,64,21,64,21,64,21,22,21,22,21,22,21,22,21,22,21,22,21,64,21,22,21,22,21,22,21,22,21,22,21,22,21,64,21,22,21,64,21,64,21,64,21,64,21,64,21,64,21,1779\r\n'
+# Message = 'sendir,1:2,1,37878,1,1,171,171,21,64,21,64,21,64,21,22,21,22,21,22,21,22,21,22,21,64,21,64,21,64,21,22,21,22,21,22,21,22,21,22,21,22,21,64,21,22,21,22,21,22,21,22,21,22,21,22,21,64,21,22,21,64,21,64,21,64,21,64,21,64,21,64,21,1779\r\n'
 
 # LG TV in Baa's room - turn on/off:
-#Message = 'sendir,1:2,1,37878,1,1,342,170,21,22,21,21,21,64,21,22,21,22,21,22,21,21,21,22,21,64,21,64,21,22,21,64,21,64,21,64,21,64,21,64,21,22,21,22,21,22,21,64,21,22,21,22,21,22,21,22,21,64,21,64,21,64,21,22,21,64,21,64,21,64,21,64,21,3700\r\n'
+Message = 'sendir,1:2,1,37878,1,1,342,170,21,22,21,21,21,64,21,22,21,22,21,22,21,21,21,22,21,64,21,64,21,22,21,64,21,64,21,64,21,64,21,64,21,22,21,22,21,22,21,64,21,22,21,22,21,22,21,22,21,64,21,64,21,64,21,22,21,64,21,64,21,64,21,64,21,3700\r\n'
 #
 ##########################################
 
@@ -56,8 +56,8 @@ sock.settimeout(5)
 server_address = (GCHOST, GCPORT)
 
 # Initialize Roku
-#ROKUHOST = '192.168.157.3' # Joy Network
-ROKUHOST = '192.168.2.51'  # Radhasoami Network
+ROKUHOST = '192.168.157.3' # Joy Network
+#ROKUHOST = '192.168.2.51'  # Radhasoami Network
 roku = Roku(ROKUHOST)
 youtube = roku['YouTube']
 
@@ -76,7 +76,6 @@ def setup():
     GPIO.setup(BtnPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)    # Set BtnPin's mode is input, and pull up to high level(3.3V)
     GPIO.output(LedPin, GPIO.HIGH) # Set LedPin high(+3.3V) to off led
 
-    time.sleep(20)
     logger.info ('Starting up Pushpal.')
     now = datetime.datetime.now()
     logger.info ('Start date and time: %s' % now.strftime('%Y-%m-%d %H:%M:%S'))
@@ -159,7 +158,17 @@ def loop():
                 # LED is off
                 logger.info ('LED is off!')
                 logger.info ('Switch Roku back to Home screen...')
-                roku.home()
+                roku.back()
+                time.sleep(5)
+                roku.back()
+                time.sleep(2)
+                roku.back()
+                time.sleep(2)
+                roku.down()
+                time.sleep(2)
+                roku.select()
+                time.sleep(5)
+                #roku.home()
                 logger.info ('Sleeping for 5 seconds')
                 time.sleep(5)
                 # Send data
